@@ -22,20 +22,29 @@ def setup_sheets():
     credentials = None
     if os.path.exists("token.json"):
         credentials = Credentials.from_authorized_user_file("token.json", SCOPES)
+    
     if not credentials or not credentials.valid:
         if credentials and credentials.expired and credentials.refresh_token:
             credentials.refresh(Request())
         else:
             flow = InstalledAppFlow.from_client_secrets_file("credentials.json", SCOPES)
-            credentials = flow.run_console()
+            try:
+                # Cambiar a run_console() para entornos sin navegador
+                credentials = flow.run_console()
+            except Exception as e:
+                st.error(f"Error durante la autenticación: {e}")
+                return None
+
         with open("token.json", "w") as token:
             token.write(credentials.to_json())
+    
     try:
         service = build("sheets", "v4", credentials=credentials)
         return service
     except HttpError as error:
         st.error(f"Error al conectar con Google Sheets: {error}")
         return None
+
 
 
 def load_data_from_sheet(sheets_service, sheet_name, range_name):
