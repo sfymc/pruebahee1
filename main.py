@@ -27,7 +27,7 @@ def setup_sheets():
             credentials.refresh(Request())
         else:
             flow = InstalledAppFlow.from_client_secrets_file("credentials.json", SCOPES)
-            credentials = flow.run_local_server(port=0)
+            credentials = flow.run_console()
         with open("token.json", "w") as token:
             token.write(credentials.to_json())
     try:
@@ -36,6 +36,7 @@ def setup_sheets():
     except HttpError as error:
         st.error(f"Error al conectar con Google Sheets: {error}")
         return None
+
 
 def load_data_from_sheet(sheets_service, sheet_name, range_name):
     try:
