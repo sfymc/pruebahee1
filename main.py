@@ -14,9 +14,23 @@ RANGE_MAIN_TABLE = "B3:E11"
 RANGE_SIDE_TABLE = "G3:H6"
 
 USER_CREDENTIALS = {
-    'usuario1': {'password': 'contraseña1', 'hoja': 'Hoja1'},
-    'usuario2': {'password': 'contraseña2', 'hoja': 'Hoja2'},
+    'grupo1': {'password': 'contraseña1', 'hoja': 'Grupo1'},
+    'grupo2': {'password': 'contraseña2', 'hoja': 'Grupo2'},
+    'grupo3': {'password': 'contraseña3', 'hoja': 'Grupo3'},
+    'grupo4': {'password': 'contraseña4', 'hoja': 'Grupo4'},
+    'grupo5': {'password': 'contraseña5', 'hoja': 'Grupo5'},
+    'grupo6': {'password': 'contraseña6', 'hoja': 'Grupo6'},
+    'grupo7': {'password': 'contraseña7', 'hoja': 'Grupo7'},
+    'grupo8': {'password': 'contraseña8', 'hoja': 'Grupo8'},
+    'grupo9': {'password': 'contraseña9', 'hoja': 'Grupo9'},
+    'grupo10': {'password': 'contraseña10', 'hoja': 'Grupo10'},
+    'grupo11': {'password': 'contraseña11', 'hoja': 'Grupo11'},
+    'grupo12': {'password': 'contraseña12', 'hoja': 'Grupo12'},
+    'grupo13': {'password': 'contraseña13', 'hoja': 'Grupo13'},
+    'grupo14': {'password': 'contraseña14', 'hoja': 'Grupo14'},
+    'grupo15': {'password': 'contraseña15', 'hoja': 'Grupo15'},
 }
+
 
 def setup_sheets():
     credentials = None
