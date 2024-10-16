@@ -11,7 +11,7 @@ from googleapiclient.errors import HttpError
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 SPREADSHEET_ID = "1922sJ9L6eQEErviFwOKZKV0S8DYQrHEAfpb-0hVzgAY"
 RANGE_MAIN_TABLE = "B3:E11"
-RANGE_SIDE_TABLE = "G3:H6"
+RANGE_SIDE_TABLE = "G3:H7"
 
 USER_CREDENTIALS = {
     'grupo1': {'password': 'contraseña1', 'hoja': 'Grupo1'},
