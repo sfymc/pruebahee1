@@ -120,14 +120,23 @@ def main():
             if sheets_service:
                 st.success(f"Bienvenido, {username}. Cargando datos de la hoja {sheet_name}...")
 
-                values_main_table = load_data_from_sheet(sheets_service, sheet_name, RANGE_MAIN_TABLE)
-                display_main_table(values_main_table, sheet_name)
+                if 'values_main_table' not in st.session_state:
+                    st.session_state.values_main_table = load_data_from_sheet(sheets_service, sheet_name, RANGE_MAIN_TABLE)
 
-                values_side_table = load_data_from_sheet(sheets_service, sheet_name, RANGE_SIDE_TABLE)
-                display_side_table(values_side_table, sheet_name)
+                if 'values_side_table' not in st.session_state:
+                    st.session_state.values_side_table = load_data_from_sheet(sheets_service, sheet_name, RANGE_SIDE_TABLE)
+
+                display_main_table(st.session_state.values_main_table, sheet_name)
+                display_side_table(st.session_state.values_side_table, sheet_name)
+
+                if st.button("Actualizar Datos"):
+                    st.session_state.values_main_table = load_data_from_sheet(sheets_service, sheet_name, RANGE_MAIN_TABLE)
+                    st.session_state.values_side_table = load_data_from_sheet(sheets_service, sheet_name, RANGE_SIDE_TABLE)
+                    display_main_table(st.session_state.values_main_table, sheet_name)
+                    display_side_table(st.session_state.values_side_table, sheet_name)
 
         else:
-            st.error("⚠ Usuario o contraseña incorrectos. Inténtalo de nuevo.")
+            st.error("Usuario o contraseña incorrectos. Inténtalo de nuevo.")
             st.experimental_rerun()
 
 if __name__ == "__main__":
