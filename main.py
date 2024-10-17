@@ -102,7 +102,7 @@ def display_side_table(values, sheet_name):
         st.write(f"No se encontraron datos en la tabla del costado de {sheet_name}.")
     
 def main():
-    st.title("Visualización: Datos de Carteras 📊")
+    st.title("Visualización: Datos de Cartera 📊")
     st.markdown("<h3 style='text-align: center; color: #333;'>Ingrese sus credenciales</h3>", unsafe_allow_html=True)
 
     username = st.text_input("Usuario", "")
@@ -116,22 +116,20 @@ def main():
             if sheets_service:
                 st.success(f"Bienvenido, {username}. Cargando datos de la hoja {sheet_name}...")
 
-                if 'values_main_table' not in st.session_state:
-                    st.session_state.values_main_table = load_data_from_sheet(sheets_service, sheet_name, RANGE_MAIN_TABLE)
+                # Cargar datos en tiempo real (sin depender de session_state)
+                values_main_table = load_data_from_sheet(sheets_service, sheet_name, RANGE_MAIN_TABLE)
+                values_side_table = load_data_from_sheet(sheets_service, sheet_name, RANGE_SIDE_TABLE)
 
-                if 'values_side_table' not in st.session_state:
-                    st.session_state.values_side_table = load_data_from_sheet(sheets_service, sheet_name, RANGE_SIDE_TABLE)
-
-                display_main_table(st.session_state.values_main_table, sheet_name)
-                display_side_table(st.session_state.values_side_table, sheet_name)
+                display_main_table(values_main_table, sheet_name)
+                display_side_table(values_side_table, sheet_name)
 
                 if st.button("Actualizar Datos"):
-                    # Actualizar los datos nuevamente desde Google Sheets
-                    st.session_state.values_main_table = load_data_from_sheet(sheets_service, sheet_name, RANGE_MAIN_TABLE)
-                    st.session_state.values_side_table = load_data_from_sheet(sheets_service, sheet_name, RANGE_SIDE_TABLE)
-                    # Mostrar los datos actualizados
-                    display_main_table(st.session_state.values_main_table, sheet_name)
-                    display_side_table(st.session_state.values_side_table, sheet_name)
+                    # Actualizar datos desde Google Sheets
+                    values_main_table = load_data_from_sheet(sheets_service, sheet_name, RANGE_MAIN_TABLE)
+                    values_side_table = load_data_from_sheet(sheets_service, sheet_name, RANGE_SIDE_TABLE)
+                    # Mostrar las tablas actualizadas
+                    display_main_table(values_main_table, sheet_name)
+                    display_side_table(values_side_table, sheet_name)
 
         else:
             st.error("Usuario o contraseña incorrectos. Inténtalo de nuevo.")
@@ -139,4 +137,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
