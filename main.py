@@ -31,7 +31,6 @@ USER_CREDENTIALS = {
     'grupo15': {'password': 'contraseña15', 'hoja': 'Grupo15'},
 }
 
-
 def setup_sheets():
     credentials = None
     if os.path.exists("token.json"):
@@ -43,7 +42,6 @@ def setup_sheets():
         else:
             flow = InstalledAppFlow.from_client_secrets_file("credentials.json", SCOPES)
             try:
-                # Cambiar a run_console() para entornos sin navegador
                 credentials = flow.run_console()
             except Exception as e:
                 st.error(f"Error durante la autenticación: {e}")
@@ -58,8 +56,6 @@ def setup_sheets():
     except HttpError as error:
         st.error(f"Error al conectar con Google Sheets: {error}")
         return None
-
-
 
 def load_data_from_sheet(sheets_service, sheet_name, range_name):
     try:
@@ -104,7 +100,7 @@ def display_side_table(values, sheet_name):
         st.table(df)
     else:
         st.write(f"No se encontraron datos en la tabla del costado de {sheet_name}.")
-
+    
 def main():
     st.title("Visualización: Datos de Cartera 📊")
     st.markdown("<h3 style='text-align: center; color: #333;'>Ingrese sus credenciales</h3>", unsafe_allow_html=True)
@@ -130,8 +126,10 @@ def main():
                 display_side_table(st.session_state.values_side_table, sheet_name)
 
                 if st.button("Actualizar Datos"):
+                    # Actualizar los datos nuevamente desde Google Sheets
                     st.session_state.values_main_table = load_data_from_sheet(sheets_service, sheet_name, RANGE_MAIN_TABLE)
                     st.session_state.values_side_table = load_data_from_sheet(sheets_service, sheet_name, RANGE_SIDE_TABLE)
+                    # Mostrar los datos actualizados
                     display_main_table(st.session_state.values_main_table, sheet_name)
                     display_side_table(st.session_state.values_side_table, sheet_name)
 
@@ -141,3 +139,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
