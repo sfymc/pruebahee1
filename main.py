@@ -102,7 +102,7 @@ def display_side_table(values, sheet_name):
         st.write(f"No se encontraron datos en la tabla del costado de {sheet_name}.")
     
 def main():
-    st.title("Visualización: Datos de Cartera 📊")
+    st.title("Visualización: Datos de Carteras 📊")
     st.markdown("<h3 style='text-align: center; color: #333;'>Ingrese sus credenciales</h3>", unsafe_allow_html=True)
 
     username = st.text_input("Usuario", "")
